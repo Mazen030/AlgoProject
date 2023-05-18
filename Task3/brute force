@@ -1,0 +1,31 @@
+
+#include<iostream>
+#include <bitset>
+
+using namespace std;
+
+int generateGraycode(int num)// A function to generate the nth Gray code
+{
+    return num ^ (num >> 1);
+}
+int main()
+{
+    int i = 0;// Initialize the counter to 0
+
+    int counter = 0;
+    int gray = 0;
+    int n=6;
+
+    while (gray < (1 << n) - 1)// Loop through the Gray code sequence
+    {
+
+        gray = generateGraycode(counter); // Generate the next Gray code
+// Output the Gray code
+cout << i << " : " << bitset<6>(gray) <<endl;
+ //Increment the counter
+        counter++;
+
+        ++i;
+    }
+    cout << i-1;
+}
