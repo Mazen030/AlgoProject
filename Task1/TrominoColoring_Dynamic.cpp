@@ -7,9 +7,8 @@ int arr[128][128];
 
 
 
-int tile(int n, int x, int y)
+int tile(int n, int x, int y,int size_of_grid)
 {
-	size_of_grid = 16;
 	int r, c;
 	int indices[3][2];
 	int k = 0;
@@ -159,10 +158,10 @@ int tile(int n, int x, int y)
 	}
 
 	// dividing it again in 4 quadrants
-	tile(n / 2, x, y + n / 2);  //down left
-	tile(n / 2, x, y);  //down right
-	tile(n / 2, x + n / 2, y);  //up right 
-	tile(n / 2, x + n / 2, y + n / 2); // up left
+	tile(n / 2, x, y + n / 2, size_of_grid);  //down left
+	tile(n / 2, x, y, size_of_grid);  //down right
+	tile(n / 2, x + n / 2, y, size_of_grid);  //up right 
+	tile(n / 2, x + n / 2, y + n / 2, size_of_grid); // up left
 
 	return 0;
 }
@@ -172,13 +171,18 @@ int main()
 	// size of box
 	int size_of_grid;
 	cout << "enter size of grid as n *n ";
+
 	cin >> size_of_grid;
+	while ((size_of_grid & (size_of_grid - 1)) != 0) {
+		cout << "size_of_grid not power of 2 , re-enter size of grid as n *n ";
+		cin >> size_of_grid;
+	}
 	memset(arr, 0, sizeof(arr));
 	// Coordinates which will be marked
-	a = 6, b = 7;
+	a = 1, b = 1;
 	// Here tile can not be placed
 	arr[a][b] = -1;
-	tile(size_of_grid, 0, 0);
+	tile(size_of_grid, 0, 0, size_of_grid);
 	char arr2[128][128];
 	// The grid is
 	for (int i = 0; i < size_of_grid; i++) {
