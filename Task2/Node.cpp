@@ -8,7 +8,7 @@
  */
 
 
-Node::Node(string name): pos(name), visited(false),deg(0),corner(false), trav(0){
+Node::Node(string name): pos(name), visited(false), deg(0), corner(false), nextPossibleMove(0){
     for(int i=0;i<8;i++)
         this->nextK[i]=NULL;
     if(this->pos=="a1"||this->pos=="a8"||this->pos=="h1"||this->pos=="h8") {
@@ -16,11 +16,11 @@ Node::Node(string name): pos(name), visited(false),deg(0),corner(false), trav(0)
     }
 }
 Node* Node::getLowestNext() {
+    //returns next possible move with minimum degree that has not been visited befoe
     int min_deg=9;
     int min_deg_idx=-1;
     int start=rand()%8;
     for(int count = 0; count < 8; ++count){
-        //int i=count;
         int i = (start + count)%8;
         if(this->nextK[i]==NULL)
             continue;
@@ -57,7 +57,7 @@ Node& Node::operator=(const Node& other)  {
     this->deg=other.deg;
     this->visited=other.visited;
     this->corner=other.corner;
-    this->trav=other.trav;
+    this->nextPossibleMove=other.nextPossibleMove;
     for(int i=0;i<8;i++){
         this->nextK[i]=other.nextK[i];
     }

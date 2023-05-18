@@ -6,10 +6,6 @@
 #define KNIGHT_PROJ_NODE_H
 
 #include <iostream>
-#include <cstdlib>
-#include <list>
-#include <cstring>
-#include <math.h>
 #include "Constant.h"
 using namespace std;
 const int xMovesK[] = {1, 1, 2, 2, -1, -1, -2, -2};
@@ -21,7 +17,7 @@ public:
     typedef Node* NodePointer;
     bool visited;
     bool corner;
-    int trav;
+    int nextPossibleMove;
      string pos;
     int deg;
     NodePointer nextK[8];

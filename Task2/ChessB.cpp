@@ -41,10 +41,7 @@ ChessB::ChessB(string src)
 
 
 
-/*
- 5-This function is used to create the nodes available for the chess pieces used (knight, pawn, bishop)
- to move to, it also implements the isValid function to make sure that the pieces stays in board
-*/
+
 
 void ChessB::addNexts() {
     for (int i = 0; i < N; i++) {
@@ -75,15 +72,6 @@ void ChessB::addKnight(int i, int j) {
     }
 }
 
-/*
- addPawn is a function used to create the nodes available for the pawn to move to
- it's implemented using the xMovesP and yMovesP which is the positions the pawn can move to
- */
-
-/*
- addBishop is a function used to create the nodes available for the bishop to move to,
- it's implemented using the xMovesB and yMovesB which is the positions the bishop can move to
- */
 
 void ChessB::choosePathKWarnsdorff() {
     Node* tmp= nullptr;
@@ -103,15 +91,13 @@ void ChessB::choosePathKBacktracking() {
     Node* tmp= nullptr;
 
     for(int j=0;j<N*N;j++){
-        //int trial=0;
         for(int i=0;(i<8);i++) {
             tmp = this->current->nextK[i];
-            //trial++;
             if (tmp == nullptr||(tmp->visited == true && i>=7)) {//backtracking
                 this->current->visited= false;
                 cnt-=2;
                 this->current = this->pathK[cnt];
-                i=this->current->trav-1;
+                i= this->current->nextPossibleMove - 1;
                 cnt++;
                 this->pathK[cnt]=NULL;
                 j=cnt-1;
@@ -120,7 +106,7 @@ void ChessB::choosePathKBacktracking() {
             else if (tmp->visited == true)
                 continue;
             else {
-                this->current->trav=i+1;
+                this->current->nextPossibleMove= i + 1;
                 this->current = tmp;
                 this->current->visited=true;
                 this->pathK[cnt] = tmp;
