@@ -5,26 +5,13 @@ using namespace std;
 int size_of_grid, b, a, cnt = 0;
 int arr[128][128];
 
-// Placing tile at the given coordinates
-void place(int x1, int y1, int x2,
-	int y2, int x3, int y3)
-{
-	cnt++;
-	arr[x1][y1] = cnt;
-	arr[x2][y2] = cnt;
-	arr[x3][y3] = cnt;
-}
-// Quadrant names
-// 1 2
-// 3 4
 
-// Function based on divide and conquer
+
 int tile(int n, int x, int y)
 {
 	size_of_grid = 16;
 	int r, c;
-	vector <vector<int>> indices;
-	indices.resize(3);
+	int indices[3][2];
 	int k = 0;
 	if (n == 2) {
 		cnt++;
@@ -32,22 +19,24 @@ int tile(int n, int x, int y)
 			for (int j = 0; j < n; j++) {
 				if (arr[x + i][y + j] == 0) {
 					arr[x + i][y + j] = cnt;
-					cout << "cnt " << cnt << endl;
-					indices[k] = { x + i,y + j };
+					indices[k][0] = {x + i};
+					indices[k][1] = { y + j };
 					k++;
 
 				}
 			}
 		}
-		
-		for (int i = 0; i < indices.size(); i++) {
-			for (int j = 0; j < indices[i].size(); j++) {
+
+		/*
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 2; j++) {
 			cout <<" indices[i][j] "<< indices[i][j] << " ";
 			}
 		} 
+		*/
 		
 		
-		cout << "----------"<<endl;
+		//cout << "----------"<<endl;
 
 
 		//w -> -20
@@ -56,11 +45,10 @@ int tile(int n, int x, int y)
 		int whitecnt = 0;
 		int blackcnt = 0;
 		int anycounter = 0;
-		cout << "size of grid" << size_of_grid << endl;
 		for (int i = 0; i < 3; i++) {
 			if ((arr[indices[i][0] - 1][indices[i][1]] != cnt) && ((indices[i][0] - 1) < size_of_grid) && ((indices[i][1]) < size_of_grid) && ((indices[i][0] - 1) >= 0) && (indices[i][1] >= 0))
 			{
-				cout << "indices[i][0] - 1: " << indices[i][0] - 1 << " indices[i][1]: " << indices[i][1] << endl;
+			//	cout << "indices[i][0] - 1: " << indices[i][0] - 1 << " indices[i][1]: " << indices[i][1] << endl;
 				if (arr[indices[i][0] - 1][indices[i][1]] ==- 20)
 					whitecnt++;
 				else if (arr[indices[i][0] + 1][indices[i][1]] == -19)
@@ -70,7 +58,7 @@ int tile(int n, int x, int y)
 				}
 			}
 			if ((arr[indices[i][0]][indices[i][1] + 1] != cnt) && (indices[i][0] < size_of_grid) && (indices[i][1] + 1 < size_of_grid) && (indices[i][0] >= 0) && (indices[i][1] + 1 >= 0)) {
-				cout << "indices[i][0] : " << indices[i][0] << " indices[i][1]+1: " << indices[i][1] + 1 << endl;
+			//	cout << "indices[i][0] : " << indices[i][0] << " indices[i][1]+1: " << indices[i][1] + 1 << endl;
 
 				if (arr[indices[i][0]][indices[i][1] + 1] == -20)
 					whitecnt++;
@@ -84,7 +72,7 @@ int tile(int n, int x, int y)
 
 			}
 			if ((arr[indices[i][0] + 1][indices[i][1]] != cnt) && (indices[i][0] + 1 < size_of_grid) && (indices[i][1] < size_of_grid) && (indices[i][0] + 1 >= 0) && (indices[i][1] >= 0)) {
-				cout << "indices[i][0] +1: " << indices[i][0] + 1 << " indices[i][1]: " << indices[i][1] << endl;
+			//	cout << "indices[i][0] +1: " << indices[i][0] + 1 << " indices[i][1]: " << indices[i][1] << endl;
 
 				if (arr[indices[i][0] + 1][indices[i][1]] == -20)
 					whitecnt++;
@@ -99,7 +87,7 @@ int tile(int n, int x, int y)
 
 			if ((arr[indices[i][0]][indices[i][1] - 1] != cnt) && (indices[i][0] < size_of_grid) && (indices[i][1] - 1 < size_of_grid) && (indices[i][0] >= 0) && (indices[i][1] - 1 >= 0))
 			{
-				cout << "indices[i][0]: " << indices[i][0] << " indices[i][1]-1: " << indices[i][1] - 1 << endl;
+			//	cout << "indices[i][0]: " << indices[i][0] << " indices[i][1]-1: " << indices[i][1] - 1 << endl;
 
 				if (arr[indices[i][0]][indices[i][1] - 1] == -20)
 					whitecnt++;
@@ -113,8 +101,8 @@ int tile(int n, int x, int y)
 			}
 			
 		}
-		cout << "black cnt " << blackcnt << endl;
-		cout << "white cnt " << whitecnt << endl;
+	//	cout << "black cnt " << blackcnt << endl;
+	//	cout << "white cnt " << whitecnt << endl;
 
 		if (blackcnt>whitecnt) {
 			arr[indices[0][0]][indices[0][1]]=-20;
