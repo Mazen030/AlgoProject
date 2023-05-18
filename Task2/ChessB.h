@@ -4,21 +4,19 @@
 
 #ifndef KNIGHT_PROJ_CHESSB_H
 #define KNIGHT_PROJ_CHESSB_H
-#include <vector>
 #include "Node.h"
-#include <queue>
-using namespace std;
+#include "Constant.h"
 class ChessB{
 public:
-    vector<vector<Node>> cb;
+    Node cb[N][N];
     Node* src;
     Node* current;
-    Node* pathK[64];
+    Node* pathK[N*N];
     int cnt;
     ChessB(string src);
-    bool isValid(string str);//Makes sure position of pieces is valid
     void addNexts();//creates pieces Nodes
     void addKnight(int i, int j);//creates Knight nodes
-    void choosePathK();
+    void choosePathKWarnsdorff();
+    void choosePathKBacktracking();
 };
 #endif
