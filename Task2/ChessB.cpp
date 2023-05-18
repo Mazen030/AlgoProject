@@ -11,13 +11,10 @@
  *   which makes it easy to traverse through the board
  * */
 
-ChessB::ChessB(string src)
+ChessB::ChessB(int x,int y)//constructing the board
 {
-    string temp="a1";
     for(int i= 0; i<N;i++){
         for(int j=0;j<N;j++){
-            /*temp[1] = '1'+i;
-            temp[0] = 'a'+j;*/
             Node k(i,j);
             cb[i][j]=k;
         }
@@ -26,7 +23,7 @@ ChessB::ChessB(string src)
         this->pathK[i]=NULL;
     }
     cnt=0;
-    this->src=&this->cb[src[1] - '1'][src[0] - 'a'];
+    this->src=&this->cb[x][y];
     this->src->visited=true;
     this->current=this->src;
     this->pathK[cnt]=this->current;
@@ -74,7 +71,7 @@ void ChessB::addKnight(int i, int j) {
 }
 
 
-void ChessB::choosePathKWarnsdorff() {
+void ChessB::choosePathKWarnsdorff() {//Building the path with Warnsdorff's rule
     Node* tmp= nullptr;
     for(int i=0;i<N*N-1;i++){
         tmp = this->current->getLowestNext();
@@ -90,7 +87,6 @@ void ChessB::choosePathKWarnsdorff() {
 }
 void ChessB::choosePathKBacktracking() {
     Node* tmp= nullptr;
-
     for(int j=0;j<N*N;j++){
         for(int i=0;(i<8);i++) {
             tmp = this->current->nextK[i];

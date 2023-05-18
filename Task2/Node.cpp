@@ -9,17 +9,15 @@
 
 
 Node::Node(int r, int c):  visited(false), deg(0), corner(false), nextPossibleMove(0),r(r),c(c){
+    //constructing a square
     for(int i=0;i<8;i++)
         this->nextK[i]=NULL;
-    /*if(this->pos=="a1"||this->pos=="a8"||this->pos=="h1"||this->pos=="h8") {
-        this->corner = true;
-    }*/
     if((this->r==0 && this->c==0)||(this->r==0 && this->c==N-1)||(this->r==N-1 && this->c==0)||(this->r==N-1 && this->c==N-1)){
         this->corner = true;
     }
 }
 Node* Node::getLowestNext() {
-    //returns next possible move with minimum degree that has not been visited befoe
+    //returns next possible move with minimum degree that has not been visited before
     int min_deg=9;
     int min_deg_idx=-1;
     int start=rand()%8;

@@ -13,7 +13,7 @@ public:
     Node* current;
     Node* pathK[N*N];
     int cnt;
-    ChessB(string src);
+    ChessB(int x,int y);
     void addNexts();//creates pieces Nodes
     void addKnight(int i, int j);//creates Knight nodes
     void choosePathKWarnsdorff();
