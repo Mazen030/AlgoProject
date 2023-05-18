@@ -16,14 +16,13 @@ class Node{
 public:
     typedef Node* NodePointer;
     bool visited;
+    int r,c;
     bool corner;
     int nextPossibleMove;
-     string pos;
     int deg;
     NodePointer nextK[8];
-    Node(string name);
+    Node(int r, int c);
     Node();
-    Node(int x,int y);
     void display(ostream & out) const;
     void visit();
     Node* getLowestNext();

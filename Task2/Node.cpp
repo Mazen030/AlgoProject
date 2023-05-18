@@ -8,10 +8,13 @@
  */
 
 
-Node::Node(string name): pos(name), visited(false), deg(0), corner(false), nextPossibleMove(0){
+Node::Node(int r, int c):  visited(false), deg(0), corner(false), nextPossibleMove(0),r(r),c(c){
     for(int i=0;i<8;i++)
         this->nextK[i]=NULL;
-    if(this->pos=="a1"||this->pos=="a8"||this->pos=="h1"||this->pos=="h8") {
+    /*if(this->pos=="a1"||this->pos=="a8"||this->pos=="h1"||this->pos=="h8") {
+        this->corner = true;
+    }*/
+    if((this->r==0 && this->c==0)||(this->r==0 && this->c==N-1)||(this->r==N-1 && this->c==0)||(this->r==N-1 && this->c==N-1)){
         this->corner = true;
     }
 }
@@ -53,8 +56,9 @@ void Node::visit() {
 Node& Node::operator=(const Node& other)  {
     if (this != &other) {
         // Perform deep copy of data
-    this->pos=other.pos;
     this->deg=other.deg;
+    this->r=other.r;
+    this->c=other.c;
     this->visited=other.visited;
     this->corner=other.corner;
     this->nextPossibleMove=other.nextPossibleMove;
@@ -71,13 +75,13 @@ Node::Node(){
 This function formats the printing of the nodes
  */
 void Node::display(ostream &out) const {
-    out<<"Node Position: "<<this->pos<<endl;
+    out<<"Node Position: "<<this->r<<","<<this->c<<endl;
     out<<"Next Nodes for Knight:\n";
     for(int i=0;i<8;i++){
         if(this->nextK[i] == NULL)
             continue;
         else
-            out << this->nextK[i]->pos << endl;
+            out << this->nextK[i]->r<<","<< this->nextK[i]->c << endl;
     }
 }
 
@@ -85,15 +89,13 @@ bool Node::isNeighbour(Node *n) {
     for(int i=0;i<8;i++){
         if(this->nextK[i]==NULL)
             break;
-        if(n->pos==this->nextK[i]->pos)
+        if(n->r==this->nextK[i]->r &&n->c==this->nextK[i]->c)
             return true;
     }
     return false;
 }
 
-Node::Node(int x, int y) {
-    if(x<N && y<N && x>-1 && y>-1){}
-}
+
 
 
 ostream & operator<< (ostream & out, const Node & aNode)

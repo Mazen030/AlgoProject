@@ -16,9 +16,9 @@ ChessB::ChessB(string src)
     string temp="a1";
     for(int i= 0; i<N;i++){
         for(int j=0;j<N;j++){
-            temp[1] = '1'+i;
-            temp[0] = 'a'+j;
-            Node k(temp);
+            /*temp[1] = '1'+i;
+            temp[0] = 'a'+j;*/
+            Node k(i,j);
             cb[i][j]=k;
         }
     }
@@ -59,13 +59,14 @@ void ChessB::addNexts() {
 void ChessB::addKnight(int i, int j) {
     int y = 0;
     for (int k = 0; k < N; k++) {
-        char temp[2];
-        temp[0] = this->cb[i][j].pos[0] + xMovesK[k];
-        temp[1] = this->cb[i][j].pos[1] + yMovesK[k];
-        if (!(isValid(temp)))
+        int temp1;
+        int temp2;
+        temp1 = this->cb[i][j].c + xMovesK[k];
+        temp2 = this->cb[i][j].r + yMovesK[k];
+        if (!(isValid(temp2,temp1)))
             this->cb[i][j].nextK[y]=NULL;
         else {
-            this->cb[i][j].nextK[y] = &this->cb[temp[1] - '1'][temp[0] - 'a'];
+            this->cb[i][j].nextK[y] = &this->cb[temp2][temp1];
             this->cb[i][j].deg++;
             y++;
         }

@@ -12,7 +12,7 @@ int main() {
         cout << x.cnt << endl;
         if (x.cnt == N*N  && x.pathK[0]->isNeighbour(x.pathK[N*N-1]) == true) {
             for(int i=0;i<N*N;i++){
-                cout<<x.pathK[i]->pos<<endl;
+                cout<<x.pathK[i]->r<<","<<x.pathK[i]->c<<endl;
             }
             break;
         }
